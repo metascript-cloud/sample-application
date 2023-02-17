@@ -4,4 +4,4 @@ const myApp = new MyApp();
 myApp.start();
 
 // schedule the stop event to trigger after delay
-setTimeout(myApp.stop, 10000);
+setTimeout(myApp.stop, 60000 * 60);
