@@ -1,9 +1,13 @@
 import App from "../interfaces/App";
 import Job from "../model/Job";
 import Player from "../model/Player";
+import Server from "../server/Server";
 import FileDatabase from "../util/FileDatabase";
 
 export default class MyApp implements App {
+
+    // http server
+    private server : Server;
 
     // file database resposible for doing io operations
     private database : FileDatabase;
@@ -17,6 +21,7 @@ export default class MyApp implements App {
     constructor() {
         // initialise all variables as usual
         this.database = new FileDatabase();
+        this.server = new Server();
         this.playerList = [];
     }
 
@@ -24,13 +29,7 @@ export default class MyApp implements App {
      * Application started initialise and load what needs to be loaded
      */
     public start() : void {
-        console.log("-- Starting application --");
-        // add players to list
-        this.addPlayersToList();
-        // load player list
-        this.loadPlayerList();
-        // display the player list
-        this.displayPlayerList();
+        this.server.listen(8888);
     }
 
     /**
@@ -48,9 +47,8 @@ export default class MyApp implements App {
             // no need to execute this if player list already exist
             return;
         }
-
         console.log("-- Adding players to list --");
-
+        
         const anthony = new Player("Anthony");
         const mark = new Player("Mark");
         const tom = new Player("Tom");
